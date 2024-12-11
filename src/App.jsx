@@ -1,13 +1,13 @@
 import Controls from "./components/Controls/Controls";
-
+import "./App.css"
 
 function App() {
 
 
   return (
-    <div className="container">
+    <>
       <Controls/>
-    </div>
+    </>   
   );
 }
 
