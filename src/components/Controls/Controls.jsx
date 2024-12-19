@@ -2,13 +2,17 @@ import { open } from "@tauri-apps/plugin-dialog"
 import * as mm from 'music-metadata';
 import {readFile} from "@tauri-apps/plugin-fs"
 import { useState, useRef, useEffect} from "react";
+
 import VolumeBar from "./VolumeBar/VolumeBar";
+import CurrentPlay from "./CurrentPlay/CurrentPlay";
+import ControlButtons from "./ControlButtons/ControlButtons";
 import "./Controls.css"
 
 export default function Controls(){
   // state variables
-  let [image, setImage] = useState("");
+
   let [audioVolume, setVolume] = useState(1);
+  let [metadata, setMetadata] = useState({});
   // refs
   const audioRef = useRef(null);
   // sets volume after changing the volume bar value
@@ -22,7 +26,7 @@ export default function Controls(){
   // TODO: extract loading the cover to a different function
   const getFile = async ()=>{
 
-      let metadata = new Object();
+      
       // TODO allow multiple file/directory open to form a listening queue
       const file = await open({
           multiple: false,
@@ -43,16 +47,9 @@ export default function Controls(){
         try{
             const audioStream = await readFile(file);
         
-            metadata = await mm.parseBuffer(audioStream);
+            setMetadata(await mm.parseBuffer(audioStream));
 
             console.log(metadata);
-            fetch(`https://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key=${import.meta.env.VITE_API_KEY}&artist=${metadata.common.artist}&album=${metadata.common.album}&format=json`).then(response=>{
-              return response.json();
-            })
-            .then(json=>{
-              console.log(json);
-              setImage(json.album.image[2]["#text"]);
-            })
           }
           catch(error){
             console.error("Error getting metadata", error.message)
@@ -67,13 +64,14 @@ export default function Controls(){
     }
 
     return(
+    <>
+        <button onClick={getFile}></button>
         <div className="controls">
-            <audio src="" ref={audioRef}></audio>
-            <button onClick={getFile}></button>
-            <img src={image} alt=""/>
-            {/* <CurrentPlay/>
-            <ControlButtons/>*/}
+          <audio src="" ref={audioRef}></audio>
+            <CurrentPlay metadata={metadata}/>
+            <ControlButtons audioRef={audioRef}/>
             <VolumeBar onChangeVolume={setVol}/>
         </div>
+    </>
     )
 }
