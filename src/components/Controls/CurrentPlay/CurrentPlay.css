@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+.current-play{
+    display: flex;
+    height:100%;
+    color:white;
+    font-family: Montserrat, sans-serif;
+}
+
+.current-play img{
+    height:100%;
+    margin-right: 0.5em
+}
+
+.current-play-info{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.current-play-info h3{
+    margin:0;
+}
+
+.current-play-info p{
+    margin:0;
+    font-size: 0.9em;
+    opacity: 0.7;
+}
