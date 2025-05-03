@@ -13,8 +13,8 @@
 
 .control-buttons{
     position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
+    left: calc(50%);
+    transform: translateX(calc(-50% + 2vw));
 }
 
 img{

@@ -1,0 +1,21 @@
+.control-buttons button{
+    border-radius: 50%;
+    width: 2vw;
+    aspect-ratio: 1/1;
+    background-image: linear-gradient(315deg, rgb(52, 53, 66), rgb(1, 3, 48));
+    border-width: 1px;
+}
+.control-buttons button img{
+    height: 50%;
+    aspect-ratio: 1/1;
+    filter: invert(100%);
+}   
+ .control-buttons button img.blue {
+    filter: invert(29%) sepia(96%) saturate(749%) hue-rotate(180deg) brightness(100%) contrast(100%);
+}
+
+.control-buttons button img.white {
+    filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%) contrast(100%);
+}
+
+
